@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio 2026 JUNE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="floating-island" id="island">
+
+    <img class="avatar" src="resources/PugsPfPnew.jpg" alt="Profile Picture"/>
+
+    <div class="island-content">
+
+        <div class="brand" id="toggleBtn">
+
+            <span class="site-name">Pugs</span>
+
+            <div class="discord-row">
+
+                <img class="discord-icon" src="resources/Discordiconnew.png" alt="Discord"/>
+
+                <span class="discord-name">jordanlovespugz</span>
+
+                <img class="discord-badge" src="resources/badges/active-developer.png">
+                <img class="discord-badge" src="resources/badges/nitro.png">
+                <img class="discord-badge" src="resources/badges/early-supporter.png">
+
+            </div>
+
+        </div>
+
+        <nav onclick="whenclickedplaysound()" class="nav-links">
+            <a href="#" data-page="home">Landing</a>
+            <a href="#" data-page="about">About</a>
+            <a href="#" data-page="experience">Experience</a>
+            <a href="#" data-page="contact">Contact</a>
+        </nav>
+
+    </div>
+</div>
+
+<!-- Pages -->
+<div id="home" class="page active">
+    <div class="page-card">
+        <h1 style="text-align: center;">Hi, I'm Pugs!</h1>
+        <h3 style="text-align: center;">Welcome to my portfolio! <br> Click my username to go to real site</h3>
+    </div>
+</div>
+
+<div id="about" class="page">
+    <div class="page-card">
+        <h1>About Me</h1>
+        <h3>Hi, I'm Pugs! (or Jordan) i'm a passionate web developer, modder, reverse engineer, and game developer.</h3>
+        <h1>My Journey</h1>
+        <h4>I started my journey in web development in a math class in grade 8. On the school chromebooks, text app 
+            (Yes the one with no autocomplete) this is where i learnt the basics of html, css, and javascript. Eventually I moved to a 
+            VScode (the web browser version). Around this time I also got into modding the game, gorilla tag. While modding, I 
+            learnt the basic fundamentals of C# and gathered alot of close friends. This eventually led to my interest in game development,
+             I learnt the engine Unity as, it is a good entry level engine. Eventually, I also became interested in reverse engineering, 
+             which allowed me to create more advanced mods and understand the inner workings of the 
+             games I played. After that I gained co-director status in a project, this gave me to manage communitys.</h4>
+    </div>
+</div>
+
+<div id="experience" class="page">
+    <div class="page-card">
+        <h1>Experience</h1>
+        <h2>Projects I've Worked On</h2>
+        <ul>
+            <li><strong>AcuteBunnys Casting Mod:</strong> A high-performance broadcasting modification engineered for competitive Gorilla Tag esports, enabling production teams to capture high-speed tournament gameplay with smooth tracking and professional stability.</li>
+            <li><strong>Breeze:</strong> A lightweight utility panel for the game gorilla tag, designed to run on low-end hardware. (down to 8gb of DDR3 ram)</li>
+            <li><strong>Nullify:</strong> A simple backend service for handling API requests.</li>
+        </ul>
+        <h2>Languages</h2>
+        <ul>
+            <li>JavaScript</li>
+            <li>HTML/CSS</li>
+            <li>C#</li>
+            <li>C (low-level)</li>
+            <li>C++ (very low-level)</li>
+        </ul>
+        <h2>What I am familiar with</h2>
+        <ul>
+            <li>VS Code</li>
+            <li>dnSpy (for reverse engineering)</li>
+            <li>Visual Studio</li>
+            <li>Unity (2022-2024)</li>
+            <li>Meta Quest SDK</li>
+            <li>Git/GitHub</li>
+            <li>Blender (Low-level)</li>
+        </ul>
+    </div>
+</div>
+
+<div id="contact" class="page">
+    <div class="page-card">
+        <h1>Contact</h1>
+        <p><h3>Discord:</h3> jordanlovespugz</p>
+        <p><h3>Email:</h3> jordanlovespugsbusiness@gmail.com</p>
+        <h4>If able please try to reach out via Discord as it is my preferred method of communication.</h4>   
+    </div>
+</div>
+
+
+<div class="music-player">
+
+    <div class="music-left">
+        <div class="music-cover"></div>
+
+        <div class="music-meta">
+            <div id="trackName">Loading...</div>
+            <div class="music-sub">Now Playing</div>
+        </div>
+    </div>
+
+    <div class="music-center">
+        <input id="progress" type="range" min="0" max="100" value="0">
+    </div>
+
+    <div class="music-right">
+        <button id="prev">⏮</button>
+        <button id="playBtn">▶</button>
+        <button id="next">⏭</button>
+    </div>
+
+    <audio id="audio"></audio>
+</div>
+
+<script>
+const island = document.getElementById("island");
+document.getElementById("toggleBtn").onclick = () => island.classList.toggle("expanded");
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.onclick = e => {
+        e.preventDefault();
+        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+        document.getElementById(link.dataset.page).classList.add("active");
+        island.classList.remove("expanded");
+    };
+});
+
+const playlist = [
+    {
+        name: "Butter n Toast - Carl Pedida",
+        src: "resources/song1.mp3",
+        cover: "resources/covers/cover1.jpg"
+    },
+    {
+        name: "Slowww - Malcolm Todd",
+        src: "resources/song2.mp3",
+        cover: "resources/covers/cover2.jpg"
+    },
+    {
+        name: "Thats no Fun - Steve Lacy",
+        src: "resources/song3.mp3",
+        cover: "resources/covers/cover3.jpg"
+    }
+];
+
+let index = 0;
+
+const audio = document.getElementById("audio");
+const playBtn = document.getElementById("playBtn");
+const nextBtn = document.getElementById("next");
+const prevBtn = document.getElementById("prev");
+const trackName = document.getElementById("trackName");
+const progress = document.getElementById("progress");
+const volume = document.getElementById("volume");
+const cover = document.querySelector(".music-cover");
+
+let unmuted = false;
+
+
+function loadTrack(i) {
+    const track = playlist[i];
+
+    audio.src = track.src;
+    trackName.textContent = track.name;
+
+    cover.style.backgroundImage = `url(${track.cover})`;
+    cover.style.backgroundSize = "cover";
+    cover.style.backgroundPosition = "center";
+}
+
+
+loadTrack(index);
+audio.volume = volume ? volume.value : 0.7;
+
+
+window.addEventListener("load", () => {
+    audio.muted = true;
+
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            console.log("nah you gotta click first twin ");
+        });
+    }
+});
+
+
+document.addEventListener("click", () => {
+    if (unmuted) return;
+
+    audio.muted = false;
+    unmuted = true;
+    playBtn.textContent = "⏸";
+    audio.play();
+});
+
+playBtn.onclick = () => {
+    if (audio.paused) {
+        audio.play();
+        playBtn.textContent = "⏸";
+    } else {
+        audio.pause();
+        playBtn.textContent = "▶";
+    }
+};
+
+nextBtn.onclick = () => {
+    index = (index + 1) % playlist.length;
+    loadTrack(index);
+    audio.play();
+    playBtn.textContent = "⏸";
+};
+
+prevBtn.onclick = () => {
+    index = (index - 1 + playlist.length) % playlist.length;
+    loadTrack(index);
+    audio.play();
+    playBtn.textContent = "⏸";
+};
+
+audio.ontimeupdate = () => {
+    progress.value = (audio.currentTime / audio.duration) * 100 || 0;
+};
+
+progress.oninput = () => {
+    audio.currentTime = (progress.value / 100) * audio.duration;
+};
+
+volume.oninput = () => {
+    audio.volume = volume.value;
+};
+function whenclickedplaysound() {
+    const clickSound = new Audio('resources/clicksound.mp3');
+    clickSound.play();
+    clickSound.volume = 0.2;
+}
+</script>
+
+</body>
+</html>
